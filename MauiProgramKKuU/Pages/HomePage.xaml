@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiProgramKKuU.Pages.HomePage"
+             Title="Главная"
+             BackgroundColor="#0B0A2A">
+
+    <Grid>
+        <!-- Фон -->
+        <Image Source="bg.png" Aspect="AspectFill" />
+        <BoxView Color="#140D3D" Opacity="0.35" />
+
+        <!-- Контент -->
+        <Grid Padding="40"
+              ColumnDefinitions="1.1*,1.9*"
+              RowDefinitions="Auto,*">
+
+            <!-- Заголовок -->
+            <Label Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   Text="Калькулятор кредитов и ипотеки"
+                   TextColor="White"
+                   FontSize="34"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,40,0,40" />
+
+            <!-- Левая картинка -->
+            <Image Grid.Row="1"
+                   Grid.Column="0"
+                   Source="finance.png"
+                   WidthRequest="320"
+                   HeightRequest="320"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+
+            <!-- Правая часть -->
+            <VerticalStackLayout Grid.Row="1"
+                                 Grid.Column="1"
+                                 VerticalOptions="Center"
+                                 Spacing="28">
+
+                <!-- Карточка Кредиты -->
+                <Border x:Name="CreditCard"
+                        BackgroundColor="#886A5FA8"
+                        Stroke="#A08CFF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="0">
+
+                    <Grid HeightRequest="100"
+                          Padding="24"
+                          ColumnDefinitions="Auto,*">
+
+                        <Image Source="credit.png"
+                               WidthRequest="42"
+                               HeightRequest="42"
+                               VerticalOptions="Center" />
+
+                        <Label Grid.Column="1"
+                               Text="Кредиты"
+                               TextColor="White"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               Margin="20,0,0,0" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCreditTapped" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+                <!-- Карточка Ипотека -->
+                <Border x:Name="MortgageCard"
+                        BackgroundColor="#886A5FA8"
+                        Stroke="#A08CFF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="0">
+
+                    <Grid HeightRequest="100"
+                          Padding="24"
+                          ColumnDefinitions="Auto,*">
+
+                        <Image Source="mortgage.png"
+                               WidthRequest="42"
+                               HeightRequest="42"
+                               VerticalOptions="Center" />
+
+                        <Label Grid.Column="1"
+                               Text="Ипотека"
+                               TextColor="White"
+                               FontSize="28"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"
+                               Margin="20,0,0,0" />
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMortgageTapped" />
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

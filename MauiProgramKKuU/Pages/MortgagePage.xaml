@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiProgramKKuU.Pages.MortgagePage"
+             Title="Ипотека"
+             BackgroundColor="#0B0A2A">
+
+    <Grid>
+        <!-- Фон -->
+        <Image Source="bg.png" Aspect="AspectFill" />
+        <BoxView Color="#140D3D" Opacity="0.40" />
+
+        <ScrollView>
+            <VerticalStackLayout Padding="30" Spacing="20">
+
+                <Label Text="Калькулятор ипотеки"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       Margin="0,20,0,10"/>
+
+                <Border BackgroundColor="#664A3D7A"
+                        Stroke="#A08CFF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="20">
+
+                    <VerticalStackLayout Spacing="16">
+
+                        <Label Text="Стоимость недвижимости"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Entry x:Name="PropertyPriceEntry"
+                               Placeholder="Например 5000000"
+                               TextColor="White"
+                               PlaceholderColor="#D0C7FF"
+                               Keyboard="Numeric"
+                               BackgroundColor="#33FFFFFF" />
+
+                        <Label Text="Первоначальный взнос"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Entry x:Name="InitialPaymentEntry"
+                               Placeholder="Например 1000000"
+                               TextColor="White"
+                               PlaceholderColor="#D0C7FF"
+                               Keyboard="Numeric"
+                               BackgroundColor="#33FFFFFF" />
+
+                        <Label Text="Процентная ставка (%)"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Entry x:Name="RateEntry"
+                               Placeholder="Например 10.5"
+                               TextColor="White"
+                               PlaceholderColor="#D0C7FF"
+                               Keyboard="Numeric"
+                               BackgroundColor="#33FFFFFF" />
+
+                        <Label Text="Срок (месяцы)"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Entry x:Name="MonthsEntry"
+                               Placeholder="Например 240"
+                               TextColor="White"
+                               PlaceholderColor="#D0C7FF"
+                               Keyboard="Numeric"
+                               BackgroundColor="#33FFFFFF" />
+
+                        <Label Text="Тип платежа"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Picker x:Name="PaymentTypePicker"
+                                Title="Выберите тип платежа"
+                                TextColor="White"
+                                BackgroundColor="#33FFFFFF">
+                            <Picker.Items>
+                                <x:String>Аннуитетный</x:String>
+                                <x:String>Дифференцированный</x:String>
+                            </Picker.Items>
+                        </Picker>
+
+                        <Button Text="Рассчитать"
+                                Clicked="OnCalculateClicked"
+                                HeightRequest="60"
+                                FontSize="22"
+                                FontAttributes="Bold"
+                                TextColor="White"
+                                CornerRadius="20"
+                                BackgroundColor="#886A5FA8" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="#664A3D7A"
+                        Stroke="#A08CFF"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 24"
+                        Padding="20">
+
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="Результат"
+                               TextColor="White"
+                               FontSize="22"
+                               FontAttributes="Bold"/>
+
+                        <Label x:Name="LoanAmountLabel"
+                               Text="Сумма ипотеки: -"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Label x:Name="MonthlyPaymentLabel"
+                               Text="Ежемесячный платеж: -"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Label x:Name="TotalPaymentLabel"
+                               Text="Общая выплата: -"
+                               TextColor="White"
+                               FontSize="18"/>
+
+                        <Label x:Name="OverpaymentLabel"
+                               Text="Переплата: -"
+                               TextColor="White"
+                               FontSize="18"/>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
