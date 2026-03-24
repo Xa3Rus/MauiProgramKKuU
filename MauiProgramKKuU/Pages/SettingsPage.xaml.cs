@@ -5,6 +5,8 @@ namespace MauiProgramKKuU.Pages;
 
 public partial class SettingsPage : ContentPage
 {
+    private readonly Dictionary<string, string> _themeValueByLabel = new();
+
     public SettingsPage()
     {
         InitializeComponent();
@@ -23,14 +25,20 @@ public partial class SettingsPage : ContentPage
         CurrencyLabel.Text = LocalizationService.T("Currency");
         LanguageLabel.Text = LocalizationService.T("Language");
         RoundingLabel.Text = LocalizationService.T("Rounding");
-        DarkThemeLabel.Text = LocalizationService.T("DarkTheme");
+        ThemeLabel.Text = LocalizationService.T("Theme");
         SaveButton.Text = LocalizationService.T("Save");
+
+        _themeValueByLabel.Clear();
+        ThemePicker.Items.Clear();
+        AddThemeItem(LocalizationService.T("ThemeLight"), ThemeService.Light);
+        AddThemeItem(LocalizationService.T("ThemeDark"), ThemeService.Dark);
+        AddThemeItem(LocalizationService.T("ThemePurple"), ThemeService.Purple);
 
         var settings = AppSettingsService.Get();
         CurrencyPicker.SelectedItem = settings.CurrencySymbol;
         LanguagePicker.SelectedItem = settings.Language;
         RoundingPicker.SelectedItem = settings.RoundingDigits.ToString();
-        DarkThemeSwitch.IsToggled = settings.UseDarkTheme;
+        ThemePicker.SelectedItem = _themeValueByLabel.FirstOrDefault(x => x.Value == settings.Theme).Key ?? ThemePicker.Items.FirstOrDefault();
     }
 
     private async void OnSaveClicked(object sender, EventArgs e)
@@ -40,12 +48,33 @@ public partial class SettingsPage : ContentPage
             CurrencySymbol = CurrencyPicker.SelectedItem?.ToString() ?? "Br",
             Language = LanguagePicker.SelectedItem?.ToString() ?? "RU",
             RoundingDigits = int.TryParse(RoundingPicker.SelectedItem?.ToString(), out var digits) ? digits : 2,
-            UseDarkTheme = DarkThemeSwitch.IsToggled
+            Theme = GetSelectedThemeValue()
         };
 
         AppSettingsService.Save(settings);
-        Application.Current!.UserAppTheme = settings.UseDarkTheme ? AppTheme.Dark : AppTheme.Light;
+        ThemeService.ApplyTheme(settings.Theme);
         await DisplayAlert(LocalizationService.T("Done"), LocalizationService.T("SettingsSaved"), LocalizationService.T("Ok"));
-        Application.Current.MainPage = new AppShell();
+
+        if (Application.Current?.Windows.Count > 0)
+        {
+            Application.Current.Windows[0].Page = new AppShell();
+        }
+    }
+
+    private void AddThemeItem(string label, string value)
+    {
+        ThemePicker.Items.Add(label);
+        _themeValueByLabel[label] = value;
+    }
+
+    private string GetSelectedThemeValue()
+    {
+        var label = ThemePicker.SelectedItem?.ToString();
+        if (!string.IsNullOrWhiteSpace(label) && _themeValueByLabel.TryGetValue(label, out var value))
+        {
+            return value;
+        }
+
+        return ThemeService.Dark;
     }
 }

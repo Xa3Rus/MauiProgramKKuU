@@ -3,16 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiProgramKKuU.Pages.FaqPage">
     <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="12">
-            <Label x:Name="FaqTitleLabel" Text="Как пользоваться" FontSize="24" FontAttributes="Bold" />
-            <Label x:Name="Step1Label" Text="1) Выберите Кредиты или Ипотека на главной." />
-            <Label x:Name="Step2Label" Text="2) Введите сумму, ставку и срок." />
-            <Label x:Name="Step3Label" Text="3) Выберите тип платежа и нажмите Рассчитать." />
-            <Label x:Name="Step4Label" Text="4) Для сравнения откройте страницу Сравнение." />
-            <Label x:Name="Step5Label" Text="5) История и настройки доступны в меню." />
+        <VerticalStackLayout Padding="18,20" Spacing="14">
+            <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                    Stroke="{DynamicResource AccentColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="16">
+                <VerticalStackLayout Spacing="10">
+                    <Label x:Name="FaqTitleLabel" Text="Как пользоваться" FontSize="24" FontAttributes="Bold" />
+                    <Label x:Name="Step1Label" Text="1) Выберите Кредиты или Ипотека на главной." />
+                    <Label x:Name="Step2Label" Text="2) Введите сумму, ставку и срок." />
+                    <Label x:Name="Step3Label" Text="3) Выберите тип платежа и нажмите Рассчитать." />
+                    <Label x:Name="Step4Label" Text="4) Для сравнения откройте страницу Сравнение." />
+                    <Label x:Name="Step5Label" Text="5) История и настройки доступны в меню." />
+                </VerticalStackLayout>
+            </Border>
 
-            <Label x:Name="AnnuityLabel" Text="Аннуитетный: одинаковый ежемесячный платеж." FontAttributes="Bold" />
-            <Label x:Name="DiffLabel" Text="Дифференцированный: платеж уменьшается со временем." />
+            <Border BackgroundColor="{DynamicResource AltCardBackgroundColor}"
+                    Stroke="{DynamicResource AccentColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="AnnuityLabel" Text="Аннуитетный: одинаковый ежемесячный платеж." FontAttributes="Bold" />
+                    <Label x:Name="DiffLabel" Text="Дифференцированный: платеж уменьшается со временем." />
+                </VerticalStackLayout>
+            </Border>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

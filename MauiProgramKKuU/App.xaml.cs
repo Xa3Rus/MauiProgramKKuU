@@ -8,7 +8,7 @@ namespace MauiProgramKKuU
         {
             InitializeComponent();
             var settings = AppSettingsService.Get();
-            UserAppTheme = settings.UseDarkTheme ? AppTheme.Dark : AppTheme.Light;
+            ThemeService.ApplyTheme(settings.Theme);
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

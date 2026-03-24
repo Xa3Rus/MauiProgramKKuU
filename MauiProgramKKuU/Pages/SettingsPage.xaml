@@ -3,38 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiProgramKKuU.Pages.SettingsPage">
     <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="12">
-            <Label x:Name="CurrencyLabel" Text="Валюта" />
-            <Picker x:Name="CurrencyPicker">
-                <Picker.Items>
-                    <x:String>Br</x:String>
-                    <x:String>€</x:String>
-                    <x:String>$</x:String>
-                </Picker.Items>
-            </Picker>
+        <VerticalStackLayout Padding="18,20" Spacing="14">
+            <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                    Stroke="{DynamicResource AccentColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="16">
+                <VerticalStackLayout Spacing="12">
+                    <Label x:Name="CurrencyLabel" Text="Валюта" />
+                    <Picker x:Name="CurrencyPicker">
+                        <Picker.Items>
+                            <x:String>Br</x:String>
+                            <x:String>€</x:String>
+                            <x:String>$</x:String>
+                        </Picker.Items>
+                    </Picker>
 
-            <Label x:Name="LanguageLabel" Text="Язык" />
-            <Picker x:Name="LanguagePicker">
-                <Picker.Items>
-                    <x:String>RU</x:String>
-                    <x:String>EN</x:String>
-                </Picker.Items>
-            </Picker>
+                    <Label x:Name="LanguageLabel" Text="Язык" />
+                    <Picker x:Name="LanguagePicker">
+                        <Picker.Items>
+                            <x:String>RU</x:String>
+                            <x:String>EN</x:String>
+                        </Picker.Items>
+                    </Picker>
 
-            <Label x:Name="RoundingLabel" Text="Округление" />
-            <Picker x:Name="RoundingPicker">
-                <Picker.Items>
-                    <x:String>0</x:String>
-                    <x:String>1</x:String>
-                    <x:String>2</x:String>
-                    <x:String>3</x:String>
-                </Picker.Items>
-            </Picker>
+                    <Label x:Name="RoundingLabel" Text="Округление" />
+                    <Picker x:Name="RoundingPicker">
+                        <Picker.Items>
+                            <x:String>0</x:String>
+                            <x:String>1</x:String>
+                            <x:String>2</x:String>
+                            <x:String>3</x:String>
+                        </Picker.Items>
+                    </Picker>
 
-            <HorizontalStackLayout Spacing="12">
-                <Label x:Name="DarkThemeLabel" VerticalOptions="Center" Text="Темная тема" />
-                <Switch x:Name="DarkThemeSwitch" />
-            </HorizontalStackLayout>
+                    <Label x:Name="ThemeLabel" Text="Тема" />
+                    <Picker x:Name="ThemePicker" />
+                </VerticalStackLayout>
+            </Border>
 
             <Button x:Name="SaveButton" Text="Сохранить" Clicked="OnSaveClicked" />
         </VerticalStackLayout>

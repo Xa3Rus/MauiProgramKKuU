@@ -31,6 +31,12 @@ public static class AppSettingsService
         {
             settings.CurrencySymbol = "Br";
         }
+
+        if (string.IsNullOrWhiteSpace(settings.Theme))
+        {
+            settings.Theme = settings.UseDarkTheme ? "Dark" : "Light";
+        }
+
         return settings;
     }
 
@@ -40,6 +46,13 @@ public static class AppSettingsService
         {
             settings.CurrencySymbol = "Br";
         }
+
+        if (string.IsNullOrWhiteSpace(settings.Theme))
+        {
+            settings.Theme = "Dark";
+        }
+
+        settings.UseDarkTheme = settings.Theme.Equals("Dark", StringComparison.OrdinalIgnoreCase);
         var json = JsonSerializer.Serialize(settings);
         Preferences.Set(SettingsKey, json);
     }

@@ -3,16 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiProgramKKuU.Pages.ComparePage">
     <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="10">
-            <Label x:Name="CompareTitleLabel" Text="Сравнение 3 сценариев" FontSize="24" FontAttributes="Bold" />
-            <Entry x:Name="AmountEntry" Placeholder="Сумма" Keyboard="Numeric" />
-            <Entry x:Name="RateEntry" Placeholder="Ставка %" Keyboard="Numeric" />
-            <Entry x:Name="MonthsEntry" Placeholder="Базовый срок (мес.)" Keyboard="Numeric" />
-            <Button x:Name="CompareButton" Text="Сравнить" Clicked="OnCompareClicked" />
+        <VerticalStackLayout Padding="18,20" Spacing="14">
+            <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                    Stroke="{DynamicResource AccentColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="16">
+                <VerticalStackLayout Spacing="10">
+                    <Label x:Name="CompareTitleLabel" Text="Сравнение 3 сценариев" FontSize="24" FontAttributes="Bold" />
+                    <Entry x:Name="AmountEntry" Placeholder="Сумма" Keyboard="Numeric" />
+                    <Entry x:Name="RateEntry" Placeholder="Ставка %" Keyboard="Numeric" />
+                    <Entry x:Name="MonthsEntry" Placeholder="Базовый срок (мес.)" Keyboard="Numeric" />
+                    <Button x:Name="CompareButton" Text="Сравнить" Clicked="OnCompareClicked" />
+                </VerticalStackLayout>
+            </Border>
 
-            <Label x:Name="Scenario1Label" />
-            <Label x:Name="Scenario2Label" />
-            <Label x:Name="Scenario3Label" />
+            <Border BackgroundColor="{DynamicResource AltCardBackgroundColor}"
+                    Stroke="{DynamicResource AccentColor}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    Padding="16">
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="Scenario1Label" />
+                    <Label x:Name="Scenario2Label" />
+                    <Label x:Name="Scenario3Label" />
+                </VerticalStackLayout>
+            </Border>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

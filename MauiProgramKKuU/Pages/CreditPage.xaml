@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiProgramKKuU.Pages.CreditPage"
-             BackgroundColor="#0B0A2A">
+             BackgroundColor="{DynamicResource AppBackgroundColor}">
 
     <Grid>
         <!-- Фон -->
-        <Image Source="bg.png" Aspect="AspectFill" />
-        <BoxView Color="#140D3D" Opacity="0.40" />
+        <Image Source="bg.png" Aspect="AspectFill" Opacity="0.2" />
+        <BoxView Color="{DynamicResource AppBackgroundColor}" Opacity="0.72" />
 
         <ScrollView>
             <VerticalStackLayout Padding="30" Spacing="20">
@@ -16,12 +16,12 @@
                        Text="Калькулятор кредита"
                        FontSize="30"
                        FontAttributes="Bold"
-                       TextColor="White"
+                       TextColor="{DynamicResource AppTextColor}"
                        HorizontalOptions="Center"
                        Margin="0,20,0,10"/>
 
-                <Border BackgroundColor="#664A3D7A"
-                        Stroke="#A08CFF"
+                <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 24"
                         Padding="20">
@@ -30,49 +30,49 @@
 
                         <Label x:Name="AmountLabel"
                                Text="Сумма кредита"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppTextColor}"
                                FontSize="18"/>
 
                         <Entry x:Name="AmountEntry"
                                Placeholder="Например 1000000"
-                               TextColor="White"
-                               PlaceholderColor="#D0C7FF"
+                               TextColor="{DynamicResource AppTextColor}"
+                               PlaceholderColor="{DynamicResource AppSubtextColor}"
                                Keyboard="Numeric"
-                               BackgroundColor="#33FFFFFF" />
+                               BackgroundColor="{DynamicResource InputBackgroundColor}" />
 
                         <Label x:Name="RateLabel"
                                Text="Процентная ставка (%)"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppTextColor}"
                                FontSize="18"/>
 
                         <Entry x:Name="RateEntry"
                                Placeholder="Например 12.5"
-                               TextColor="White"
-                               PlaceholderColor="#D0C7FF"
+                               TextColor="{DynamicResource AppTextColor}"
+                               PlaceholderColor="{DynamicResource AppSubtextColor}"
                                Keyboard="Numeric"
-                               BackgroundColor="#33FFFFFF" />
+                               BackgroundColor="{DynamicResource InputBackgroundColor}" />
 
                         <Label x:Name="MonthsLabel"
                                Text="Срок (месяцы)"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppTextColor}"
                                FontSize="18"/>
 
                         <Entry x:Name="MonthsEntry"
                                Placeholder="Например 60"
-                               TextColor="White"
-                               PlaceholderColor="#D0C7FF"
+                               TextColor="{DynamicResource AppTextColor}"
+                               PlaceholderColor="{DynamicResource AppSubtextColor}"
                                Keyboard="Numeric"
-                               BackgroundColor="#33FFFFFF" />
+                               BackgroundColor="{DynamicResource InputBackgroundColor}" />
 
                         <Label x:Name="PaymentTypeLabel"
                                Text="Тип платежа"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppTextColor}"
                                FontSize="18"/>
 
                         <Picker x:Name="PaymentTypePicker"
                                 Title="Выберите тип платежа"
-                                TextColor="White"
-                                BackgroundColor="#33FFFFFF">
+                                TextColor="{DynamicResource AppTextColor}"
+                                BackgroundColor="{DynamicResource InputBackgroundColor}">
                             <Picker.Items>
                                 <x:String>Аннуитетный</x:String>
                                 <x:String>Дифференцированный</x:String>
@@ -81,13 +81,13 @@
 
                         <Label x:Name="PresetLabel"
                                Text="Быстрые пресеты"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppTextColor}"
                                FontSize="18"/>
                         <Picker x:Name="PresetPicker"
                                 SelectedIndexChanged="OnPresetChanged"
                                 Title="Выберите пресет"
-                                TextColor="White"
-                                BackgroundColor="#33FFFFFF">
+                                TextColor="{DynamicResource AppTextColor}"
+                                BackgroundColor="{DynamicResource InputBackgroundColor}">
                             <Picker.Items>
                                 <x:String>Пусто</x:String>
                                 <x:String>Потребительский</x:String>
@@ -102,14 +102,14 @@
                                 HeightRequest="60"
                                 FontSize="22"
                                 FontAttributes="Bold"
-                                TextColor="White"
+                                TextColor="{DynamicResource AppTextColor}"
                                 CornerRadius="20"
-                                BackgroundColor="#886A5FA8" />
+                                BackgroundColor="{DynamicResource PrimaryButtonColor}" />
                     </VerticalStackLayout>
                 </Border>
 
-                <Border BackgroundColor="#664A3D7A"
-                        Stroke="#A08CFF"
+                <Border BackgroundColor="{DynamicResource AltCardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 24"
                         Padding="20">
@@ -117,23 +117,23 @@
                     <VerticalStackLayout Spacing="12">
                         <Label x:Name="ResultHeaderLabel"
                                Text="Результат"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppTextColor}"
                                FontSize="22"
                                FontAttributes="Bold"/>
 
                         <Label x:Name="MonthlyPaymentLabel"
                                Text="Ежемесячный платеж: -"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppSubtextColor}"
                                FontSize="18"/>
 
                         <Label x:Name="TotalPaymentLabel"
                                Text="Общая выплата: -"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppSubtextColor}"
                                FontSize="18"/>
 
                         <Label x:Name="OverpaymentLabel"
                                Text="Переплата: -"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppSubtextColor}"
                                FontSize="18"/>
 
                     </VerticalStackLayout>

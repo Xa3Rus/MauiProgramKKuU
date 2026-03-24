@@ -2,27 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiProgramKKuU.Pages.HomePage"
-             BackgroundColor="#0D1028">
+             BackgroundColor="{DynamicResource AppBackgroundColor}">
     <Grid>
         <Image Source="bg.png" Aspect="AspectFill" Opacity="0.35" />
-        <BoxView Color="#0D1028" Opacity="0.75" />
+        <BoxView Color="{DynamicResource AppBackgroundColor}" Opacity="0.75" />
 
         <ScrollView>
             <VerticalStackLayout Padding="20,28" Spacing="18">
                 <Border StrokeShape="RoundRectangle 26"
-                        BackgroundColor="#332D3D80"
-                        Stroke="#5A8CFF"
+                        BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
                         StrokeThickness="1"
                         Padding="20">
                     <VerticalStackLayout Spacing="8">
                         <Label x:Name="MainTitleLabel"
                                Text="Калькулятор кредитов"
-                               TextColor="White"
+                               TextColor="{DynamicResource AppTextColor}"
                                FontAttributes="Bold"
                                FontSize="32" />
                         <Label x:Name="SubtitleLabel"
                                Text="Быстрый расчет кредита и ипотеки"
-                               TextColor="#D8DEFF"
+                               TextColor="{DynamicResource AppSubtextColor}"
                                FontSize="16" />
                     </VerticalStackLayout>
                 </Border>
@@ -31,7 +31,7 @@
                       ColumnDefinitions="Auto,*"
                       ColumnSpacing="14"
                       Padding="18"
-                      BackgroundColor="#334658A6"
+                      BackgroundColor="{DynamicResource CardBackgroundColor}"
                       MinimumHeightRequest="98">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnCreditTapped" />
@@ -44,7 +44,7 @@
                     <Label Grid.Column="1"
                            x:Name="CreditCardTitle"
                            Text="Кредиты"
-                           TextColor="White"
+                           TextColor="{DynamicResource AppTextColor}"
                            FontAttributes="Bold"
                            FontSize="24"
                            LineBreakMode="WordWrap"
@@ -55,7 +55,7 @@
                       ColumnDefinitions="Auto,*"
                       ColumnSpacing="14"
                       Padding="18"
-                      BackgroundColor="#333E4A96"
+                      BackgroundColor="{DynamicResource AltCardBackgroundColor}"
                       MinimumHeightRequest="98">
                     <Grid.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnMortgageTapped" />
@@ -68,11 +68,101 @@
                     <Label Grid.Column="1"
                            x:Name="MortgageCardTitle"
                            Text="Ипотека"
-                           TextColor="White"
+                           TextColor="{DynamicResource AppTextColor}"
                            FontAttributes="Bold"
                            FontSize="24"
                            LineBreakMode="WordWrap"
                            VerticalOptions="Center" />
+                </Grid>
+
+                <Border StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
+                        StrokeThickness="1"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="10">
+                        <Label x:Name="QuickCalcTitleLabel"
+                               Text="Быстрый расчет"
+                               TextColor="{DynamicResource AppTextColor}"
+                               FontAttributes="Bold"
+                               FontSize="20" />
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <Entry x:Name="QuickAmountEntry"
+                                   Placeholder="Сумма"
+                                   Keyboard="Numeric"
+                                   TextColor="{DynamicResource AppTextColor}"
+                                   PlaceholderColor="{DynamicResource AppSubtextColor}"
+                                   BackgroundColor="{DynamicResource InputBackgroundColor}" />
+                            <Entry x:Name="QuickMonthsEntry"
+                                   Grid.Column="1"
+                                   Placeholder="Месяцы"
+                                   Keyboard="Numeric"
+                                   TextColor="{DynamicResource AppTextColor}"
+                                   PlaceholderColor="{DynamicResource AppSubtextColor}"
+                                   BackgroundColor="{DynamicResource InputBackgroundColor}" />
+                        </Grid>
+
+                        <Entry x:Name="QuickRateEntry"
+                               Placeholder="Ставка %"
+                               Keyboard="Numeric"
+                               TextColor="{DynamicResource AppTextColor}"
+                               PlaceholderColor="{DynamicResource AppSubtextColor}"
+                               BackgroundColor="{DynamicResource InputBackgroundColor}" />
+
+                        <Button x:Name="QuickCalcButton"
+                                Text="Посчитать"
+                                Clicked="OnQuickCalculateClicked"
+                                TextColor="{DynamicResource AppTextColor}"
+                                BackgroundColor="{DynamicResource PrimaryButtonColor}"
+                                CornerRadius="14" />
+
+                        <Label x:Name="QuickCalcResultLabel"
+                               Text="-"
+                               TextColor="{DynamicResource AppSubtextColor}"
+                               FontSize="15" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 22"
+                        BackgroundColor="{DynamicResource AltCardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
+                        StrokeThickness="1"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="8">
+                        <Label x:Name="LastCalcTitleLabel"
+                               Text="Последний расчет"
+                               TextColor="{DynamicResource AppTextColor}"
+                               FontSize="18"
+                               FontAttributes="Bold" />
+                        <Label x:Name="LastCalcValueLabel"
+                               Text="-"
+                               TextColor="{DynamicResource AppSubtextColor}"
+                               LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                    <Button x:Name="HistoryQuickButton"
+                            Text="История"
+                            Clicked="OnHistoryTapped"
+                            TextColor="{DynamicResource AppTextColor}"
+                            BackgroundColor="{DynamicResource PrimaryButtonColor}"
+                            CornerRadius="12" />
+                    <Button x:Name="CompareQuickButton"
+                            Grid.Column="1"
+                            Text="Сравнить"
+                            Clicked="OnCompareTapped"
+                            TextColor="{DynamicResource AppTextColor}"
+                            BackgroundColor="{DynamicResource PrimaryButtonColor}"
+                            CornerRadius="12" />
+                    <Button x:Name="SettingsQuickButton"
+                            Grid.Column="2"
+                            Text="Настройки"
+                            Clicked="OnSettingsTapped"
+                            TextColor="{DynamicResource AppTextColor}"
+                            BackgroundColor="{DynamicResource PrimaryButtonColor}"
+                            CornerRadius="12" />
                 </Grid>
             </VerticalStackLayout>
         </ScrollView>
