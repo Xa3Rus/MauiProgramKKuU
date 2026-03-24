@@ -12,6 +12,9 @@ public partial class HistoryPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        Title = LocalizationService.T("History");
+        HistoryTitleLabel.Text = LocalizationService.T("LatestCalculations");
+        ClearButton.Text = LocalizationService.T("ClearHistory");
         LoadHistory();
     }
 
@@ -24,8 +27,8 @@ public partial class HistoryPage : ContentPage
                 x.ProductType,
                 x.PaymentType,
                 CreatedAtLocalText = x.CreatedAtUtc.ToLocalTime().ToString("g"),
-                MainLine = $"Сумма: {x.Amount:F2} {settings.CurrencySymbol} | Ставка: {x.Rate:F2}% | Срок: {x.Months} мес.",
-                TotalLine = $"Платеж: {x.MonthlyPayment:F2} {settings.CurrencySymbol} | Итого: {x.TotalPayment:F2} {settings.CurrencySymbol} | Переплата: {x.Overpayment:F2} {settings.CurrencySymbol}"
+                MainLine = $"{LocalizationService.T("Amount")}: {x.Amount:F2} {settings.CurrencySymbol} | {LocalizationService.T("Rate")}: {x.Rate:F2}% | {LocalizationService.T("Term")}: {x.Months} {LocalizationService.T("MonthsShort")}",
+                TotalLine = $"{LocalizationService.T("Payment")}: {x.MonthlyPayment:F2} {settings.CurrencySymbol} | {LocalizationService.T("Total")}: {x.TotalPayment:F2} {settings.CurrencySymbol} | {LocalizationService.T("Overpayment")}: {x.Overpayment:F2} {settings.CurrencySymbol}"
             })
             .ToList();
 
@@ -34,7 +37,7 @@ public partial class HistoryPage : ContentPage
 
     private async void OnClearClicked(object sender, EventArgs e)
     {
-        var shouldClear = await DisplayAlert("Подтверждение", "Очистить всю историю?", "Да", "Нет");
+        var shouldClear = await DisplayAlert(LocalizationService.T("Confirmation"), LocalizationService.T("ClearHistoryQuestion"), LocalizationService.T("Yes"), LocalizationService.T("No"));
         if (!shouldClear)
         {
             return;

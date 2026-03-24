@@ -5,13 +5,17 @@ namespace MauiProgramKKuU.Pages;
 
 public partial class MortgagePage : ContentPage
 {
-    private List<Models.PaymentScheduleItem> _lastSchedule = [];
-
     public MortgagePage()
     {
         InitializeComponent();
         PaymentTypePicker.SelectedIndex = 0;
         PresetPicker.SelectedIndex = 0;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ApplyLocalization();
     }
 
     private async void OnCalculateClicked(object sender, EventArgs e)
@@ -56,19 +60,17 @@ public partial class MortgagePage : ContentPage
             }
 
             var settings = AppSettingsService.Get();
-            LoanAmountLabel.Text = $"Сумма ипотеки: {loanAmount:F2} {settings.CurrencySymbol}";
+            LoanAmountLabel.Text = $"{LocalizationService.T("MortgageAmount")}: {loanAmount:F2} {settings.CurrencySymbol}";
 
             if (PaymentTypePicker.SelectedIndex == 0)
             {
                 var result = LoanCalculator.CalculateAnnuity(loanAmount, rate, months);
-                _lastSchedule = LoanCalculator.BuildAnnuitySchedule(loanAmount, rate, months);
-                RenderResult(result.MonthlyPayment, result.TotalPayment, result.Overpayment, loanAmount, rate, months, "Аннуитетный");
+                RenderResult(result.MonthlyPayment, result.TotalPayment, result.Overpayment, loanAmount, rate, months, LocalizationService.T("Annuity"));
             }
             else
             {
                 var result = LoanCalculator.CalculateDifferentiated(loanAmount, rate, months);
-                _lastSchedule = LoanCalculator.BuildDifferentiatedSchedule(loanAmount, rate, months);
-                RenderResult(result.FirstPayment, result.TotalPayment, result.Overpayment, loanAmount, rate, months, "Дифференцированный", true);
+                RenderResult(result.FirstPayment, result.TotalPayment, result.Overpayment, loanAmount, rate, months, LocalizationService.T("Differentiated"), true);
             }
         }
         catch (Exception ex)
@@ -87,18 +89,10 @@ public partial class MortgagePage : ContentPage
         TotalPaymentLabel.Text = $"{LocalizationService.T("TotalPayment")}: {Math.Round(total, digits):F2} {settings.CurrencySymbol}";
         OverpaymentLabel.Text = $"{LocalizationService.T("Overpayment")}: {Math.Round(overpayment, digits):F2} {settings.CurrencySymbol}";
 
-        ScheduleCollection.ItemsSource = _lastSchedule.Select(s => new
-        {
-            s.MonthNumber,
-            PaymentText = $"Пл: {Math.Round(s.Payment, digits):F2}",
-            InterestText = $"%: {Math.Round(s.Interest, digits):F2}",
-            DebtText = $"Ост: {Math.Round(s.RemainingDebt, digits):F2}"
-        }).ToList();
-
         CalculationHistoryService.Add(new Models.LoanHistoryItem
         {
             CreatedAtUtc = DateTime.UtcNow,
-            ProductType = "Ипотека",
+            ProductType = LocalizationService.T("Mortgage"),
             Amount = amount,
             Rate = rate,
             Months = months,
@@ -134,27 +128,43 @@ public partial class MortgagePage : ContentPage
         }
     }
 
-    private async void OnExportClicked(object sender, EventArgs e)
+    private void ApplyLocalization()
     {
-        if (_lastSchedule.Count == 0)
+        Title = LocalizationService.T("Mortgage");
+        PageTitleLabel.Text = LocalizationService.T("MortgageCalculator");
+        PropertyPriceLabel.Text = LocalizationService.T("PropertyPrice");
+        PropertyPriceEntry.Placeholder = LocalizationService.T("ExamplePropertyPrice");
+        InitialPaymentLabel.Text = LocalizationService.T("InitialPayment");
+        InitialPaymentEntry.Placeholder = LocalizationService.T("ExampleInitialPayment");
+        RateLabel.Text = LocalizationService.T("InterestRate");
+        RateEntry.Placeholder = LocalizationService.T("ExampleRateMortgage");
+        MonthsLabel.Text = LocalizationService.T("TermMonths");
+        MonthsEntry.Placeholder = LocalizationService.T("ExampleMonthsMortgage");
+        PaymentTypeLabel.Text = LocalizationService.T("PaymentType");
+        PresetLabel.Text = LocalizationService.T("QuickPresets");
+        CalculateButton.Text = LocalizationService.T("Calculate");
+        ResultHeaderLabel.Text = LocalizationService.T("Result");
+        LoanAmountLabel.Text = $"{LocalizationService.T("MortgageAmount")}: -";
+        MonthlyPaymentLabel.Text = $"{LocalizationService.T("MonthlyPayment")}: -";
+        TotalPaymentLabel.Text = $"{LocalizationService.T("TotalPayment")}: -";
+        OverpaymentLabel.Text = $"{LocalizationService.T("Overpayment")}: -";
+
+        PaymentTypePicker.Items.Clear();
+        PaymentTypePicker.Items.Add(LocalizationService.T("Annuity"));
+        PaymentTypePicker.Items.Add(LocalizationService.T("Differentiated"));
+        if (PaymentTypePicker.SelectedIndex < 0)
         {
-            await DisplayAlert(LocalizationService.T("Warning"), LocalizationService.T("CalculateFirst"), LocalizationService.T("Ok"));
-            return;
+            PaymentTypePicker.SelectedIndex = 0;
         }
 
-        var filePath = await CsvExportService.ExportScheduleAsync(_lastSchedule, "mortgage_schedule");
-        await DisplayAlert(LocalizationService.T("ExportDone"), $"{LocalizationService.T("CsvSaved")}: {filePath}", LocalizationService.T("Ok"));
-    }
-
-    private async void OnExportPdfClicked(object sender, EventArgs e)
-    {
-        if (_lastSchedule.Count == 0)
+        PresetPicker.Items.Clear();
+        PresetPicker.Items.Add(LocalizationService.T("None"));
+        PresetPicker.Items.Add(LocalizationService.T("EconomyPreset"));
+        PresetPicker.Items.Add(LocalizationService.T("FamilyPreset"));
+        PresetPicker.Items.Add(LocalizationService.T("BusinessPreset"));
+        if (PresetPicker.SelectedIndex < 0)
         {
-            await DisplayAlert(LocalizationService.T("Warning"), LocalizationService.T("CalculateFirst"), LocalizationService.T("Ok"));
-            return;
+            PresetPicker.SelectedIndex = 0;
         }
-
-        var filePath = await PdfExportService.ExportScheduleAsync(_lastSchedule, "Mortgage Schedule");
-        await DisplayAlert(LocalizationService.T("ExportDone"), $"{LocalizationService.T("PdfSaved")}: {filePath}", LocalizationService.T("Ok"));
     }
 }

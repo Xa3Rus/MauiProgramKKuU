@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiProgramKKuU.Pages.FaqPage"
-             Title="FAQ">
+             x:Class="MauiProgramKKuU.Pages.FaqPage">
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="12">
-            <Label Text="Как пользоваться" FontSize="24" FontAttributes="Bold" />
-            <Label Text="1) Выберите Кредиты или Ипотека на главной." />
-            <Label Text="2) Введите сумму, ставку и срок." />
-            <Label Text="3) Выберите тип платежа и нажмите Рассчитать." />
-            <Label Text="4) Для сравнения откройте страницу Сравнение." />
-            <Label Text="5) История и настройки доступны в меню." />
+            <Label x:Name="FaqTitleLabel" Text="Как пользоваться" FontSize="24" FontAttributes="Bold" />
+            <Label x:Name="Step1Label" Text="1) Выберите Кредиты или Ипотека на главной." />
+            <Label x:Name="Step2Label" Text="2) Введите сумму, ставку и срок." />
+            <Label x:Name="Step3Label" Text="3) Выберите тип платежа и нажмите Рассчитать." />
+            <Label x:Name="Step4Label" Text="4) Для сравнения откройте страницу Сравнение." />
+            <Label x:Name="Step5Label" Text="5) История и настройки доступны в меню." />
 
-            <Label Text="Аннуитетный: одинаковый ежемесячный платеж." FontAttributes="Bold" />
-            <Label Text="Дифференцированный: платеж уменьшается со временем." />
+            <Label x:Name="AnnuityLabel" Text="Аннуитетный: одинаковый ежемесячный платеж." FontAttributes="Bold" />
+            <Label x:Name="DiffLabel" Text="Дифференцированный: платеж уменьшается со временем." />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

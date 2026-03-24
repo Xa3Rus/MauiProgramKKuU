@@ -10,6 +10,17 @@ public partial class ComparePage : ContentPage
         InitializeComponent();
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        Title = LocalizationService.T("Compare");
+        CompareTitleLabel.Text = LocalizationService.T("CompareThreeScenarios");
+        AmountEntry.Placeholder = LocalizationService.T("Amount");
+        RateEntry.Placeholder = LocalizationService.T("RatePercent");
+        MonthsEntry.Placeholder = LocalizationService.T("BaseTermMonths");
+        CompareButton.Text = LocalizationService.T("CompareButton");
+    }
+
     private async void OnCompareClicked(object sender, EventArgs e)
     {
         if (!double.TryParse((AmountEntry.Text ?? string.Empty).Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out var amount) ||
@@ -27,8 +38,8 @@ public partial class ComparePage : ContentPage
         var r2 = LoanCalculator.CalculateAnnuity(amount, rate, terms[1]);
         var r3 = LoanCalculator.CalculateAnnuity(amount, rate, terms[2]);
 
-        Scenario1Label.Text = $"{terms[0]} мес.: {r1.MonthlyPayment:F2} {settings.CurrencySymbol} / мес, переплата {r1.Overpayment:F2} {settings.CurrencySymbol}";
-        Scenario2Label.Text = $"{terms[1]} мес.: {r2.MonthlyPayment:F2} {settings.CurrencySymbol} / мес, переплата {r2.Overpayment:F2} {settings.CurrencySymbol}";
-        Scenario3Label.Text = $"{terms[2]} мес.: {r3.MonthlyPayment:F2} {settings.CurrencySymbol} / мес, переплата {r3.Overpayment:F2} {settings.CurrencySymbol}";
+        Scenario1Label.Text = $"{terms[0]} {LocalizationService.T("MonthsShort")}: {r1.MonthlyPayment:F2} {settings.CurrencySymbol}/{LocalizationService.T("MonthShort")} | {LocalizationService.T("Overpayment").ToLowerInvariant()} {r1.Overpayment:F2} {settings.CurrencySymbol}";
+        Scenario2Label.Text = $"{terms[1]} {LocalizationService.T("MonthsShort")}: {r2.MonthlyPayment:F2} {settings.CurrencySymbol}/{LocalizationService.T("MonthShort")} | {LocalizationService.T("Overpayment").ToLowerInvariant()} {r2.Overpayment:F2} {settings.CurrencySymbol}";
+        Scenario3Label.Text = $"{terms[2]} {LocalizationService.T("MonthsShort")}: {r3.MonthlyPayment:F2} {settings.CurrencySymbol}/{LocalizationService.T("MonthShort")} | {LocalizationService.T("Overpayment").ToLowerInvariant()} {r3.Overpayment:F2} {settings.CurrencySymbol}";
     }
 }

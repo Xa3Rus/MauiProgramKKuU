@@ -11,8 +11,21 @@ public partial class SettingsPage : ContentPage
         LoadSettings();
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        LoadSettings();
+    }
+
     private void LoadSettings()
     {
+        Title = LocalizationService.T("Settings");
+        CurrencyLabel.Text = LocalizationService.T("Currency");
+        LanguageLabel.Text = LocalizationService.T("Language");
+        RoundingLabel.Text = LocalizationService.T("Rounding");
+        DarkThemeLabel.Text = LocalizationService.T("DarkTheme");
+        SaveButton.Text = LocalizationService.T("Save");
+
         var settings = AppSettingsService.Get();
         CurrencyPicker.SelectedItem = settings.CurrencySymbol;
         LanguagePicker.SelectedItem = settings.Language;
@@ -32,6 +45,7 @@ public partial class SettingsPage : ContentPage
 
         AppSettingsService.Save(settings);
         Application.Current!.UserAppTheme = settings.UseDarkTheme ? AppTheme.Dark : AppTheme.Light;
-        await DisplayAlert("Готово", "Настройки сохранены", "OK");
+        await DisplayAlert(LocalizationService.T("Done"), LocalizationService.T("SettingsSaved"), LocalizationService.T("Ok"));
+        Application.Current.MainPage = new AppShell();
     }
 }

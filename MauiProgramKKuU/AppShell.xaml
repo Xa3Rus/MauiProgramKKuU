@@ -6,36 +6,41 @@
     xmlns:pages="clr-namespace:MauiProgramKKuU.Pages"
     Title="MauiProgramKKuU">
 
-    <FlyoutItem Title="Главная">
+    <FlyoutItem x:Name="HomeFlyout" Title="Главная">
         <ShellContent
+            x:Name="HomeShellContent"
             Title="Главная"
             ContentTemplate="{DataTemplate pages:HomePage}"
             Route="HomePage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="История">
+    <FlyoutItem x:Name="HistoryFlyout" Title="История">
         <ShellContent
+            x:Name="HistoryShellContent"
             Title="История"
             ContentTemplate="{DataTemplate pages:HistoryPage}"
             Route="HistoryPage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Сравнение">
+    <FlyoutItem x:Name="CompareFlyout" Title="Сравнение">
         <ShellContent
+            x:Name="CompareShellContent"
             Title="Сравнение"
             ContentTemplate="{DataTemplate pages:ComparePage}"
             Route="ComparePage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Настройки">
+    <FlyoutItem x:Name="SettingsFlyout" Title="Настройки">
         <ShellContent
+            x:Name="SettingsShellContent"
             Title="Настройки"
             ContentTemplate="{DataTemplate pages:SettingsPage}"
             Route="SettingsPage" />
     </FlyoutItem>
 
-    <FlyoutItem Title="FAQ">
+    <FlyoutItem x:Name="FaqFlyout" Title="FAQ">
         <ShellContent
+            x:Name="FaqShellContent"
             Title="FAQ"
             ContentTemplate="{DataTemplate pages:FaqPage}"
             Route="FaqPage" />

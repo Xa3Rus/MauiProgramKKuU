@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiProgramKKuU.Pages.SettingsPage"
-             Title="Настройки">
+             x:Class="MauiProgramKKuU.Pages.SettingsPage">
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="12">
-            <Label Text="Валюта" />
+            <Label x:Name="CurrencyLabel" Text="Валюта" />
             <Picker x:Name="CurrencyPicker">
                 <Picker.Items>
                     <x:String>Br</x:String>
@@ -14,7 +13,7 @@
                 </Picker.Items>
             </Picker>
 
-            <Label Text="Язык" />
+            <Label x:Name="LanguageLabel" Text="Язык" />
             <Picker x:Name="LanguagePicker">
                 <Picker.Items>
                     <x:String>RU</x:String>
@@ -22,7 +21,7 @@
                 </Picker.Items>
             </Picker>
 
-            <Label Text="Округление" />
+            <Label x:Name="RoundingLabel" Text="Округление" />
             <Picker x:Name="RoundingPicker">
                 <Picker.Items>
                     <x:String>0</x:String>
@@ -33,11 +32,11 @@
             </Picker>
 
             <HorizontalStackLayout Spacing="12">
-                <Label VerticalOptions="Center" Text="Темная тема" />
+                <Label x:Name="DarkThemeLabel" VerticalOptions="Center" Text="Темная тема" />
                 <Switch x:Name="DarkThemeSwitch" />
             </HorizontalStackLayout>
 
-            <Button Text="Сохранить" Clicked="OnSaveClicked" />
+            <Button x:Name="SaveButton" Text="Сохранить" Clicked="OnSaveClicked" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

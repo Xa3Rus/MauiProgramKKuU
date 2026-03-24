@@ -5,13 +5,17 @@ namespace MauiProgramKKuU.Pages;
 
 public partial class CreditPage : ContentPage
 {
-    private List<Models.PaymentScheduleItem> _lastSchedule = [];
-
     public CreditPage()
     {
         InitializeComponent();
         PaymentTypePicker.SelectedIndex = 0;
         PresetPicker.SelectedIndex = 0;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        ApplyLocalization();
     }
 
     private async void OnCalculateClicked(object sender, EventArgs e)
@@ -49,14 +53,12 @@ public partial class CreditPage : ContentPage
             if (PaymentTypePicker.SelectedIndex == 0)
             {
                 var result = LoanCalculator.CalculateAnnuity(amount, rate, months);
-                _lastSchedule = LoanCalculator.BuildAnnuitySchedule(amount, rate, months);
-                RenderResult(result.MonthlyPayment, result.TotalPayment, result.Overpayment, amount, rate, months, "Аннуитетный");
+                RenderResult(result.MonthlyPayment, result.TotalPayment, result.Overpayment, amount, rate, months, LocalizationService.T("Annuity"));
             }
             else
             {
                 var result = LoanCalculator.CalculateDifferentiated(amount, rate, months);
-                _lastSchedule = LoanCalculator.BuildDifferentiatedSchedule(amount, rate, months);
-                RenderResult(result.FirstPayment, result.TotalPayment, result.Overpayment, amount, rate, months, "Дифференцированный", true);
+                RenderResult(result.FirstPayment, result.TotalPayment, result.Overpayment, amount, rate, months, LocalizationService.T("Differentiated"), true);
             }
         }
         catch (Exception ex)
@@ -75,18 +77,10 @@ public partial class CreditPage : ContentPage
         TotalPaymentLabel.Text = $"{LocalizationService.T("TotalPayment")}: {Math.Round(total, digits):F2} {settings.CurrencySymbol}";
         OverpaymentLabel.Text = $"{LocalizationService.T("Overpayment")}: {Math.Round(overpayment, digits):F2} {settings.CurrencySymbol}";
 
-        ScheduleCollection.ItemsSource = _lastSchedule.Select(s => new
-        {
-            s.MonthNumber,
-            PaymentText = $"Пл: {Math.Round(s.Payment, digits):F2}",
-            InterestText = $"%: {Math.Round(s.Interest, digits):F2}",
-            DebtText = $"Ост: {Math.Round(s.RemainingDebt, digits):F2}"
-        }).ToList();
-
         CalculationHistoryService.Add(new Models.LoanHistoryItem
         {
             CreatedAtUtc = DateTime.UtcNow,
-            ProductType = "Кредит",
+            ProductType = LocalizationService.T("Credits"),
             Amount = amount,
             Rate = rate,
             Months = months,
@@ -119,27 +113,40 @@ public partial class CreditPage : ContentPage
         }
     }
 
-    private async void OnExportClicked(object sender, EventArgs e)
+    private void ApplyLocalization()
     {
-        if (_lastSchedule.Count == 0)
+        Title = LocalizationService.T("Credits");
+        PageTitleLabel.Text = LocalizationService.T("CreditCalculator");
+        AmountLabel.Text = LocalizationService.T("LoanAmount");
+        AmountEntry.Placeholder = LocalizationService.T("ExampleAmount");
+        RateLabel.Text = LocalizationService.T("InterestRate");
+        RateEntry.Placeholder = LocalizationService.T("ExampleRate");
+        MonthsLabel.Text = LocalizationService.T("TermMonths");
+        MonthsEntry.Placeholder = LocalizationService.T("ExampleMonths");
+        PaymentTypeLabel.Text = LocalizationService.T("PaymentType");
+        PresetLabel.Text = LocalizationService.T("QuickPresets");
+        CalculateButton.Text = LocalizationService.T("Calculate");
+        ResultHeaderLabel.Text = LocalizationService.T("Result");
+        MonthlyPaymentLabel.Text = $"{LocalizationService.T("MonthlyPayment")}: -";
+        TotalPaymentLabel.Text = $"{LocalizationService.T("TotalPayment")}: -";
+        OverpaymentLabel.Text = $"{LocalizationService.T("Overpayment")}: -";
+
+        PaymentTypePicker.Items.Clear();
+        PaymentTypePicker.Items.Add(LocalizationService.T("Annuity"));
+        PaymentTypePicker.Items.Add(LocalizationService.T("Differentiated"));
+        if (PaymentTypePicker.SelectedIndex < 0)
         {
-            await DisplayAlert(LocalizationService.T("Warning"), LocalizationService.T("CalculateFirst"), LocalizationService.T("Ok"));
-            return;
+            PaymentTypePicker.SelectedIndex = 0;
         }
 
-        var filePath = await CsvExportService.ExportScheduleAsync(_lastSchedule, "credit_schedule");
-        await DisplayAlert(LocalizationService.T("ExportDone"), $"{LocalizationService.T("CsvSaved")}: {filePath}", LocalizationService.T("Ok"));
-    }
-
-    private async void OnExportPdfClicked(object sender, EventArgs e)
-    {
-        if (_lastSchedule.Count == 0)
+        PresetPicker.Items.Clear();
+        PresetPicker.Items.Add(LocalizationService.T("None"));
+        PresetPicker.Items.Add(LocalizationService.T("ConsumerPreset"));
+        PresetPicker.Items.Add(LocalizationService.T("AutoPreset"));
+        PresetPicker.Items.Add(LocalizationService.T("MortgageStandardPreset"));
+        if (PresetPicker.SelectedIndex < 0)
         {
-            await DisplayAlert(LocalizationService.T("Warning"), LocalizationService.T("CalculateFirst"), LocalizationService.T("Ok"));
-            return;
+            PresetPicker.SelectedIndex = 0;
         }
-
-        var filePath = await PdfExportService.ExportScheduleAsync(_lastSchedule, "Credit Schedule");
-        await DisplayAlert(LocalizationService.T("ExportDone"), $"{LocalizationService.T("PdfSaved")}: {filePath}", LocalizationService.T("Ok"));
     }
 }

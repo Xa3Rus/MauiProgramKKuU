@@ -1,3 +1,5 @@
+using MauiProgramKKuU.Services;
+
 namespace MauiProgramKKuU.Pages;
 
 public partial class HomePage : ContentPage
@@ -5,6 +7,16 @@ public partial class HomePage : ContentPage
     public HomePage()
     {
         InitializeComponent();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        Title = LocalizationService.T("Home");
+        MainTitleLabel.Text = LocalizationService.T("HomeTitle");
+        SubtitleLabel.Text = LocalizationService.T("HomeSubtitle");
+        CreditCardTitle.Text = LocalizationService.T("Credits");
+        MortgageCardTitle.Text = LocalizationService.T("Mortgage");
     }
 
     private async void OnCreditTapped(object sender, TappedEventArgs e)

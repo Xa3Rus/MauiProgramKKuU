@@ -2,107 +2,79 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiProgramKKuU.Pages.HomePage"
-             Title="Главная"
-             BackgroundColor="#0B0A2A">
-
+             BackgroundColor="#0D1028">
     <Grid>
-        <!-- Фон -->
-        <Image Source="bg.png" Aspect="AspectFill" />
-        <BoxView Color="#140D3D" Opacity="0.35" />
+        <Image Source="bg.png" Aspect="AspectFill" Opacity="0.35" />
+        <BoxView Color="#0D1028" Opacity="0.75" />
 
-        <!-- Контент -->
-        <Grid Padding="40"
-              ColumnDefinitions="1.1*,1.9*"
-              RowDefinitions="Auto,*">
-
-            <!-- Заголовок -->
-            <Label Grid.Row="0"
-                   Grid.ColumnSpan="2"
-                   Text="Калькулятор кредитов и ипотеки"
-                   TextColor="White"
-                   FontSize="34"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   Margin="0,40,0,40" />
-
-            <!-- Левая картинка -->
-            <Image Grid.Row="1"
-                   Grid.Column="0"
-                   Source="finance.png"
-                   WidthRequest="320"
-                   HeightRequest="320"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
-
-            <!-- Правая часть -->
-            <VerticalStackLayout Grid.Row="1"
-                                 Grid.Column="1"
-                                 VerticalOptions="Center"
-                                 Spacing="28">
-
-                <!-- Карточка Кредиты -->
-                <Border x:Name="CreditCard"
-                        BackgroundColor="#886A5FA8"
-                        Stroke="#A08CFF"
+        <ScrollView>
+            <VerticalStackLayout Padding="20,28" Spacing="18">
+                <Border StrokeShape="RoundRectangle 26"
+                        BackgroundColor="#332D3D80"
+                        Stroke="#5A8CFF"
                         StrokeThickness="1"
-                        StrokeShape="RoundRectangle 24"
-                        Padding="0">
-
-                    <Grid HeightRequest="100"
-                          Padding="24"
-                          ColumnDefinitions="Auto,*">
-
-                        <Image Source="credit.png"
-                               WidthRequest="42"
-                               HeightRequest="42"
-                               VerticalOptions="Center" />
-
-                        <Label Grid.Column="1"
-                               Text="Кредиты"
+                        Padding="20">
+                    <VerticalStackLayout Spacing="8">
+                        <Label x:Name="MainTitleLabel"
+                               Text="Калькулятор кредитов"
                                TextColor="White"
-                               FontSize="28"
                                FontAttributes="Bold"
-                               VerticalOptions="Center"
-                               Margin="20,0,0,0" />
-
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnCreditTapped" />
-                        </Grid.GestureRecognizers>
-                    </Grid>
+                               FontSize="32" />
+                        <Label x:Name="SubtitleLabel"
+                               Text="Быстрый расчет кредита и ипотеки"
+                               TextColor="#D8DEFF"
+                               FontSize="16" />
+                    </VerticalStackLayout>
                 </Border>
 
-                <!-- Карточка Ипотека -->
-                <Border x:Name="MortgageCard"
-                        BackgroundColor="#886A5FA8"
-                        Stroke="#A08CFF"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 24"
-                        Padding="0">
+                <Grid x:Name="CreditCard"
+                      ColumnDefinitions="Auto,*"
+                      ColumnSpacing="14"
+                      Padding="18"
+                      BackgroundColor="#334658A6"
+                      MinimumHeightRequest="98">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCreditTapped" />
+                    </Grid.GestureRecognizers>
 
-                    <Grid HeightRequest="100"
-                          Padding="24"
-                          ColumnDefinitions="Auto,*">
+                    <Image Source="credit.png"
+                           WidthRequest="34"
+                           HeightRequest="34"
+                           VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           x:Name="CreditCardTitle"
+                           Text="Кредиты"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           FontSize="24"
+                           LineBreakMode="WordWrap"
+                           VerticalOptions="Center" />
+                </Grid>
 
-                        <Image Source="mortgage.png"
-                               WidthRequest="42"
-                               HeightRequest="42"
-                               VerticalOptions="Center" />
+                <Grid x:Name="MortgageCard"
+                      ColumnDefinitions="Auto,*"
+                      ColumnSpacing="14"
+                      Padding="18"
+                      BackgroundColor="#333E4A96"
+                      MinimumHeightRequest="98">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnMortgageTapped" />
+                    </Grid.GestureRecognizers>
 
-                        <Label Grid.Column="1"
-                               Text="Ипотека"
-                               TextColor="White"
-                               FontSize="28"
-                               FontAttributes="Bold"
-                               VerticalOptions="Center"
-                               Margin="20,0,0,0" />
-
-                        <Grid.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnMortgageTapped" />
-                        </Grid.GestureRecognizers>
-                    </Grid>
-                </Border>
-
+                    <Image Source="mortgage.png"
+                           WidthRequest="34"
+                           HeightRequest="34"
+                           VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           x:Name="MortgageCardTitle"
+                           Text="Ипотека"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           FontSize="24"
+                           LineBreakMode="WordWrap"
+                           VerticalOptions="Center" />
+                </Grid>
             </VerticalStackLayout>
-        </Grid>
+        </ScrollView>
     </Grid>
 </ContentPage>

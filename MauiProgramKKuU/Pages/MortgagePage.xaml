@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiProgramKKuU.Pages.MortgagePage"
-             Title="Ипотека"
              BackgroundColor="#0B0A2A">
 
     <Grid>
@@ -13,7 +12,8 @@
         <ScrollView>
             <VerticalStackLayout Padding="30" Spacing="20">
 
-                <Label Text="Калькулятор ипотеки"
+                <Label x:Name="PageTitleLabel"
+                       Text="Калькулятор ипотеки"
                        FontSize="30"
                        FontAttributes="Bold"
                        TextColor="White"
@@ -28,7 +28,8 @@
 
                     <VerticalStackLayout Spacing="16">
 
-                        <Label Text="Стоимость недвижимости"
+                        <Label x:Name="PropertyPriceLabel"
+                               Text="Стоимость недвижимости"
                                TextColor="White"
                                FontSize="18"/>
 
@@ -39,7 +40,8 @@
                                Keyboard="Numeric"
                                BackgroundColor="#33FFFFFF" />
 
-                        <Label Text="Первоначальный взнос"
+                        <Label x:Name="InitialPaymentLabel"
+                               Text="Первоначальный взнос"
                                TextColor="White"
                                FontSize="18"/>
 
@@ -50,7 +52,8 @@
                                Keyboard="Numeric"
                                BackgroundColor="#33FFFFFF" />
 
-                        <Label Text="Процентная ставка (%)"
+                        <Label x:Name="RateLabel"
+                               Text="Процентная ставка (%)"
                                TextColor="White"
                                FontSize="18"/>
 
@@ -61,7 +64,8 @@
                                Keyboard="Numeric"
                                BackgroundColor="#33FFFFFF" />
 
-                        <Label Text="Срок (месяцы)"
+                        <Label x:Name="MonthsLabel"
+                               Text="Срок (месяцы)"
                                TextColor="White"
                                FontSize="18"/>
 
@@ -72,7 +76,8 @@
                                Keyboard="Numeric"
                                BackgroundColor="#33FFFFFF" />
 
-                        <Label Text="Тип платежа"
+                        <Label x:Name="PaymentTypeLabel"
+                               Text="Тип платежа"
                                TextColor="White"
                                FontSize="18"/>
 
@@ -86,7 +91,8 @@
                             </Picker.Items>
                         </Picker>
 
-                        <Label Text="Быстрые пресеты"
+                        <Label x:Name="PresetLabel"
+                               Text="Быстрые пресеты"
                                TextColor="White"
                                FontSize="18"/>
                         <Picker x:Name="PresetPicker"
@@ -102,7 +108,8 @@
                             </Picker.Items>
                         </Picker>
 
-                        <Button Text="Рассчитать"
+                        <Button x:Name="CalculateButton"
+                                Text="Рассчитать"
                                 Clicked="OnCalculateClicked"
                                 HeightRequest="60"
                                 FontSize="22"
@@ -120,7 +127,8 @@
                         Padding="20">
 
                     <VerticalStackLayout Spacing="12">
-                        <Label Text="Результат"
+                        <Label x:Name="ResultHeaderLabel"
+                               Text="Результат"
                                TextColor="White"
                                FontSize="22"
                                FontAttributes="Bold"/>
@@ -145,26 +153,6 @@
                                TextColor="White"
                                FontSize="18"/>
 
-                        <Button Text="Экспорт графика в CSV"
-                                Clicked="OnExportClicked"
-                                Margin="0,8,0,0" />
-                        <Button Text="Экспорт графика в PDF"
-                                Clicked="OnExportPdfClicked"
-                                Margin="0,0,0,0" />
-
-                        <CollectionView x:Name="ScheduleCollection"
-                                        HeightRequest="260">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid ColumnDefinitions="40,*,*,*" Padding="0,4">
-                                        <Label Text="{Binding MonthNumber}" TextColor="White" />
-                                        <Label Grid.Column="1" Text="{Binding PaymentText}" TextColor="White" />
-                                        <Label Grid.Column="2" Text="{Binding InterestText}" TextColor="White" />
-                                        <Label Grid.Column="3" Text="{Binding DebtText}" TextColor="White" />
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
                     </VerticalStackLayout>
                 </Border>
 
