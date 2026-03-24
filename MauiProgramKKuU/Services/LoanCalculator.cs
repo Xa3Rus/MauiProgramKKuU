@@ -1,4 +1,4 @@
-﻿using System;
+using MauiProgramKKuU.Models;
 
 namespace MauiProgramKKuU.Services
 {
@@ -47,6 +47,66 @@ namespace MauiProgramKKuU.Services
             double overpayment = totalPayment - amount;
 
             return (firstPayment, totalPayment, overpayment);
+        }
+
+        public static List<PaymentScheduleItem> BuildAnnuitySchedule(double amount, double annualRate, int months)
+        {
+            var schedule = new List<PaymentScheduleItem>();
+            var monthlyRate = annualRate / 12 / 100;
+            var monthlyPayment = CalculateAnnuity(amount, annualRate, months).MonthlyPayment;
+            var debt = amount;
+
+            for (int i = 1; i <= months; i++)
+            {
+                var interest = debt * monthlyRate;
+                var principal = monthlyPayment - interest;
+                debt -= principal;
+                if (debt < 0)
+                {
+                    debt = 0;
+                }
+
+                schedule.Add(new PaymentScheduleItem
+                {
+                    MonthNumber = i,
+                    Payment = monthlyPayment,
+                    Principal = principal,
+                    Interest = interest,
+                    RemainingDebt = debt
+                });
+            }
+
+            return schedule;
+        }
+
+        public static List<PaymentScheduleItem> BuildDifferentiatedSchedule(double amount, double annualRate, int months)
+        {
+            var schedule = new List<PaymentScheduleItem>();
+            var monthlyRate = annualRate / 12 / 100;
+            var principalPart = amount / months;
+            var debt = amount;
+
+            for (int i = 1; i <= months; i++)
+            {
+                var interest = debt * monthlyRate;
+                var payment = principalPart + interest;
+                debt -= principalPart;
+                if (debt < 0)
+                {
+                    debt = 0;
+                }
+
+                schedule.Add(new PaymentScheduleItem
+                {
+                    MonthNumber = i,
+                    Payment = payment,
+                    Principal = principalPart,
+                    Interest = interest,
+                    RemainingDebt = debt
+                });
+            }
+
+            return schedule;
         }
     }
 }

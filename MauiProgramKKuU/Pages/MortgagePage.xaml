@@ -86,6 +86,22 @@
                             </Picker.Items>
                         </Picker>
 
+                        <Label Text="Быстрые пресеты"
+                               TextColor="White"
+                               FontSize="18"/>
+                        <Picker x:Name="PresetPicker"
+                                SelectedIndexChanged="OnPresetChanged"
+                                Title="Выберите пресет"
+                                TextColor="White"
+                                BackgroundColor="#33FFFFFF">
+                            <Picker.Items>
+                                <x:String>Пусто</x:String>
+                                <x:String>Эконом</x:String>
+                                <x:String>Семейная</x:String>
+                                <x:String>Бизнес</x:String>
+                            </Picker.Items>
+                        </Picker>
+
                         <Button Text="Рассчитать"
                                 Clicked="OnCalculateClicked"
                                 HeightRequest="60"
@@ -128,6 +144,27 @@
                                Text="Переплата: -"
                                TextColor="White"
                                FontSize="18"/>
+
+                        <Button Text="Экспорт графика в CSV"
+                                Clicked="OnExportClicked"
+                                Margin="0,8,0,0" />
+                        <Button Text="Экспорт графика в PDF"
+                                Clicked="OnExportPdfClicked"
+                                Margin="0,0,0,0" />
+
+                        <CollectionView x:Name="ScheduleCollection"
+                                        HeightRequest="260">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid ColumnDefinitions="40,*,*,*" Padding="0,4">
+                                        <Label Text="{Binding MonthNumber}" TextColor="White" />
+                                        <Label Grid.Column="1" Text="{Binding PaymentText}" TextColor="White" />
+                                        <Label Grid.Column="2" Text="{Binding InterestText}" TextColor="White" />
+                                        <Label Grid.Column="3" Text="{Binding DebtText}" TextColor="White" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </VerticalStackLayout>
                 </Border>
 

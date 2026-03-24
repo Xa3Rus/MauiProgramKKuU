@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using MauiProgramKKuU.Services;
 
 namespace MauiProgramKKuU
 {
@@ -7,6 +7,8 @@ namespace MauiProgramKKuU
         public App()
         {
             InitializeComponent();
+            var settings = AppSettingsService.Get();
+            UserAppTheme = settings.UseDarkTheme ? AppTheme.Dark : AppTheme.Light;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
