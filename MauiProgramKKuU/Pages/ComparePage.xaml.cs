@@ -32,14 +32,8 @@ public partial class ComparePage : ContentPage
             return;
         }
 
-        var settings = AppSettingsService.Get();
-        var terms = new[] { Math.Max(1, months - 12), months, months + 12 };
-        var r1 = LoanCalculator.CalculateAnnuity(amount, rate, terms[0]);
-        var r2 = LoanCalculator.CalculateAnnuity(amount, rate, terms[1]);
-        var r3 = LoanCalculator.CalculateAnnuity(amount, rate, terms[2]);
-
-        Scenario1Label.Text = $"{terms[0]} {LocalizationService.T("MonthsShort")}: {r1.MonthlyPayment:F2} {settings.CurrencySymbol}/{LocalizationService.T("MonthShort")} | {LocalizationService.T("Overpayment").ToLowerInvariant()} {r1.Overpayment:F2} {settings.CurrencySymbol}";
-        Scenario2Label.Text = $"{terms[1]} {LocalizationService.T("MonthsShort")}: {r2.MonthlyPayment:F2} {settings.CurrencySymbol}/{LocalizationService.T("MonthShort")} | {LocalizationService.T("Overpayment").ToLowerInvariant()} {r2.Overpayment:F2} {settings.CurrencySymbol}";
-        Scenario3Label.Text = $"{terms[2]} {LocalizationService.T("MonthsShort")}: {r3.MonthlyPayment:F2} {settings.CurrencySymbol}/{LocalizationService.T("MonthShort")} | {LocalizationService.T("Overpayment").ToLowerInvariant()} {r3.Overpayment:F2} {settings.CurrencySymbol}";
+        // Open the shared analytics view (3 scenarios overlaid).
+        await Shell.Current.GoToAsync(
+            $"{nameof(AnalyticsPage)}?mode=compare&amount={amount.ToString(CultureInfo.InvariantCulture)}&rate={rate.ToString(CultureInfo.InvariantCulture)}&months={months}&exportScenario=1");
     }
 }

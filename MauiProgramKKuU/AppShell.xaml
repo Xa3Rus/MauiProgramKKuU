@@ -22,12 +22,12 @@
             Route="HistoryPage" />
     </FlyoutItem>
 
-    <FlyoutItem x:Name="CompareFlyout" Title="Сравнение">
+    <FlyoutItem x:Name="AnalyticsFlyout" Title="Аналитика">
         <ShellContent
-            x:Name="CompareShellContent"
-            Title="Сравнение"
-            ContentTemplate="{DataTemplate pages:ComparePage}"
-            Route="ComparePage" />
+            x:Name="AnalyticsShellContent"
+            Title="Аналитика"
+            ContentTemplate="{DataTemplate pages:AnalyticsPage}"
+            Route="AnalyticsPage" />
     </FlyoutItem>
 
     <FlyoutItem x:Name="SettingsFlyout" Title="Настройки">

@@ -93,7 +93,12 @@ public static class LocalizationService
         ["FaqStep4"] = "4) Для сравнения откройте страницу Сравнение.",
         ["FaqStep5"] = "5) История и настройки доступны в меню.",
         ["FaqAnnuity"] = "Аннуитетный: одинаковый ежемесячный платеж.",
-        ["FaqDifferentiated"] = "Дифференцированный: платеж уменьшается со временем."
+        ["FaqDifferentiated"] = "Дифференцированный: платеж уменьшается со временем.",
+
+        ["Analytics"] = "Аналитика",
+        ["RemainingDebt"] = "Остаток долга",
+        ["PrincipalVsInterest"] = "Тело долга и проценты (накопительно)",
+        ["PaymentDynamics"] = "Динамика платежа"
     };
 
     private static readonly Dictionary<string, string> En = new()
@@ -187,7 +192,12 @@ public static class LocalizationService
         ["FaqStep4"] = "4) Open Compare to compare options.",
         ["FaqStep5"] = "5) History and settings are in the menu.",
         ["FaqAnnuity"] = "Annuity: same monthly payment.",
-        ["FaqDifferentiated"] = "Differentiated: payment decreases over time."
+        ["FaqDifferentiated"] = "Differentiated: payment decreases over time.",
+
+        ["Analytics"] = "Analytics",
+        ["RemainingDebt"] = "Remaining debt",
+        ["PrincipalVsInterest"] = "Principal vs Interest (cumulative)",
+        ["PaymentDynamics"] = "Payment dynamics"
     };
 
     public static string T(string key)

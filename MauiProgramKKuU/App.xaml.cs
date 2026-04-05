@@ -8,6 +8,9 @@ namespace MauiProgramKKuU
         {
             InitializeComponent();
             var settings = AppSettingsService.Get();
+            // Force premium purple palette across the whole app.
+            settings.Theme = ThemeService.Purple;
+            AppSettingsService.Save(settings);
             ThemeService.ApplyTheme(settings.Theme);
         }
 

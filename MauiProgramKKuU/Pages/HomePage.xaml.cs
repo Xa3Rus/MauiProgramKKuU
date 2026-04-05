@@ -1,5 +1,6 @@
 using MauiProgramKKuU.Services;
 using System.Globalization;
+using Microsoft.Maui.Graphics;
 
 namespace MauiProgramKKuU.Pages;
 
@@ -16,8 +17,7 @@ public partial class HomePage : ContentPage
         Title = LocalizationService.T("Home");
         MainTitleLabel.Text = LocalizationService.T("HomeTitle");
         SubtitleLabel.Text = LocalizationService.T("HomeSubtitle");
-        CreditCardTitle.Text = LocalizationService.T("Credits");
-        MortgageCardTitle.Text = LocalizationService.T("Mortgage");
+        SetSelectedTopTab(0);
         QuickCalcTitleLabel.Text = LocalizationService.T("QuickCalculation");
         QuickAmountEntry.Placeholder = LocalizationService.T("Amount");
         QuickMonthsEntry.Placeholder = LocalizationService.T("TermMonths");
@@ -30,22 +30,29 @@ public partial class HomePage : ContentPage
         LoadLastCalculation();
     }
 
-    private async void OnCreditTapped(object sender, TappedEventArgs e)
+    private async void OnCreditTabClicked(object sender, EventArgs e)
     {
-        await AnimateCard(CreditCard);
+        SetSelectedTopTab(0);
         await Shell.Current.GoToAsync(nameof(CreditPage));
     }
 
-    private async void OnMortgageTapped(object sender, TappedEventArgs e)
+    private async void OnMortgageTabClicked(object sender, EventArgs e)
     {
-        await AnimateCard(MortgageCard);
+        SetSelectedTopTab(1);
         await Shell.Current.GoToAsync(nameof(MortgagePage));
     }
 
-    private async Task AnimateCard(VisualElement card)
+    private void SetSelectedTopTab(int index)
     {
-        await card.ScaleTo(0.97, 80);
-        await card.ScaleTo(1.0, 80);
+        Grid.SetColumn(TopTabsIndicator, index);
+
+        CreditTabButton.TextColor = index == 0
+            ? (Color)Application.Current!.Resources["AppTextColor"]
+            : (Color)Application.Current!.Resources["AppSubtextColor"];
+
+        MortgageTabButton.TextColor = index == 1
+            ? (Color)Application.Current!.Resources["AppTextColor"]
+            : (Color)Application.Current!.Resources["AppSubtextColor"];
     }
 
     private void LoadLastCalculation()

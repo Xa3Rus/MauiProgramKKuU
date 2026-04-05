@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiProgramKKuU.Pages.AnalyticsPage"
+             BackgroundColor="{DynamicResource AppBackgroundColor}">
+
+    <Grid>
+        <ActivityIndicator x:Name="LoadingIndicator"
+                           IsRunning="False"
+                           IsVisible="False"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Start"
+                           Margin="0,18,0,0"/>
+        <ScrollView>
+            <VerticalStackLayout Padding="18,18" Spacing="14">
+                <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="10">
+                        <Label x:Name="PageTitleLabel"
+                               Text="Аналитика"
+                               FontSize="26"
+                               FontAttributes="Bold"
+                               TextColor="{DynamicResource AppTextColor}" />
+
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                            <Border Grid.Column="0" BackgroundColor="{DynamicResource AltCardBackgroundColor}" Stroke="{DynamicResource AccentColor}" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="12">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding MonthlyPaymentText}" FontAttributes="Bold" TextColor="{DynamicResource AppTextColor}" LineBreakMode="WordWrap"/>
+                                </VerticalStackLayout>
+                            </Border>
+                            <Border Grid.Column="1" BackgroundColor="{DynamicResource AltCardBackgroundColor}" Stroke="{DynamicResource AccentColor}" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="12">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding TotalPaymentText}" FontAttributes="Bold" TextColor="{DynamicResource AppTextColor}" LineBreakMode="WordWrap"/>
+                                </VerticalStackLayout>
+                            </Border>
+                            <Border Grid.Column="2" BackgroundColor="{DynamicResource AltCardBackgroundColor}" Stroke="{DynamicResource AccentColor}" StrokeThickness="0" StrokeShape="RoundRectangle 16" Padding="12">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding OverpaymentText}" FontAttributes="Bold" TextColor="{DynamicResource AppTextColor}" LineBreakMode="WordWrap"/>
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+
+                        <Label Text="{Binding LoanAmountText}" TextColor="{DynamicResource AppSubtextColor}" />
+
+                        <VerticalStackLayout IsVisible="{Binding IsCompare}" Spacing="8">
+                            <Label Text="Сценарии (3 срока)"
+                                   FontAttributes="Bold"
+                                   FontSize="16"
+                                   TextColor="{DynamicResource AppTextColor}" />
+
+                            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                                <Button Text="Экспорт S1"
+                                        Clicked="OnSelectExportScenario0Clicked"
+                                        Grid.Column="0"
+                                        BackgroundColor="{DynamicResource PrimaryButtonColor}"
+                                        TextColor="{DynamicResource AppTextColor}" />
+                                <Button Text="Экспорт S2"
+                                        Clicked="OnSelectExportScenario1Clicked"
+                                        Grid.Column="1"
+                                        BackgroundColor="{DynamicResource PrimaryButtonColor}"
+                                        TextColor="{DynamicResource AppTextColor}" />
+                                <Button Text="Экспорт S3"
+                                        Clicked="OnSelectExportScenario2Clicked"
+                                        Grid.Column="2"
+                                        BackgroundColor="{DynamicResource PrimaryButtonColor}"
+                                        TextColor="{DynamicResource AppTextColor}" />
+                            </Grid>
+
+                            <Label Text="{Binding Scenario1Text}"
+                                   TextColor="{DynamicResource AppSubtextColor}"
+                                   LineBreakMode="WordWrap" />
+                            <Label Text="{Binding Scenario2Text}"
+                                   TextColor="{DynamicResource AppSubtextColor}"
+                                   LineBreakMode="WordWrap" />
+                            <Label Text="{Binding Scenario3Text}"
+                                   TextColor="{DynamicResource AppSubtextColor}"
+                                   LineBreakMode="WordWrap" />
+                        </VerticalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10">
+                            <Button x:Name="ExportCsvButton"
+                                    Text="Экспорт CSV"
+                                    Clicked="OnExportCsvClicked"
+                                    BackgroundColor="{DynamicResource PrimaryButtonColor}" />
+                            <Button x:Name="ExportPdfButton"
+                                    Text="Экспорт PDF"
+                                    Clicked="OnExportPdfClicked"
+                                    BackgroundColor="{DynamicResource PrimaryButtonColor}" />
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Остаток долга"
+                               TextColor="{DynamicResource AppTextColor}"
+                               FontAttributes="Bold"
+                               FontSize="18"/>
+
+                        <Label x:Name="RemainingDebtMonthLabel"
+                               Text=""
+                               TextColor="{DynamicResource AppSubtextColor}"
+                               FontSize="14"/>
+
+                        <HorizontalStackLayout Spacing="16">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="10"
+                                         HeightRequest="10"
+                                         CornerRadius="5"
+                                         Color="{DynamicResource AccentColor}" />
+                                <Label x:Name="RemainingDebtLeftLabel"
+                                       Text=""
+                                       FontSize="14"
+                                       TextColor="{DynamicResource AppSubtextColor}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="10"
+                                         HeightRequest="10"
+                                         CornerRadius="5"
+                                         Color="#F59E0B" />
+                                <Label x:Name="RemainingDebtRightLabel"
+                                       Text=""
+                                       FontSize="14"
+                                       TextColor="#F59E0B" />
+                            </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <Grid x:Name="SplitBarRemainingGrid"
+                              ColumnDefinitions="Auto,Auto"
+                              ColumnSpacing="2"
+                              HeightRequest="18"
+                              HorizontalOptions="FillAndExpand">
+                            <BoxView x:Name="SplitBarRemainingLeftFill"
+                                     Grid.Column="0"
+                                     BackgroundColor="{DynamicResource AccentColor}"
+                                     HeightRequest="18" />
+                            <BoxView x:Name="SplitBarRemainingRightFill"
+                                     Grid.Column="1"
+                                     BackgroundColor="#F59E0B"
+                                     HeightRequest="18" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Тело долга и проценты (накопительно)"
+                               TextColor="{DynamicResource AppTextColor}"
+                               FontAttributes="Bold"
+                               FontSize="18"/>
+
+                        <HorizontalStackLayout Spacing="16">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="10"
+                                         HeightRequest="10"
+                                         CornerRadius="5"
+                                         Color="{DynamicResource AccentColor}" />
+                                <Label x:Name="CumulativeLeftLabel"
+                                       Text=""
+                                       FontSize="14"
+                                       TextColor="{DynamicResource AppSubtextColor}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="10"
+                                         HeightRequest="10"
+                                         CornerRadius="5"
+                                         Color="#F59E0B" />
+                                <Label x:Name="CumulativeRightLabel"
+                                       Text=""
+                                       FontSize="14"
+                                       TextColor="#F59E0B" />
+                            </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <Grid x:Name="SplitBarCumulativeGrid"
+                              ColumnDefinitions="Auto,Auto"
+                              ColumnSpacing="2"
+                              HeightRequest="18"
+                              HorizontalOptions="FillAndExpand">
+                            <BoxView x:Name="SplitBarCumulativeLeftFill"
+                                     Grid.Column="0"
+                                     BackgroundColor="{DynamicResource AccentColor}"
+                                     HeightRequest="18" />
+                            <BoxView x:Name="SplitBarCumulativeRightFill"
+                                     Grid.Column="1"
+                                     BackgroundColor="#F59E0B"
+                                     HeightRequest="18" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="16">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Динамика платежа"
+                               TextColor="{DynamicResource AppTextColor}"
+                               FontAttributes="Bold"
+                               FontSize="18"/>
+
+                        <Label x:Name="PaymentDynamicsMonthLabel"
+                               Text=""
+                               TextColor="{DynamicResource AppSubtextColor}"
+                               FontSize="14"/>
+
+                        <HorizontalStackLayout Spacing="16">
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="10"
+                                         HeightRequest="10"
+                                         CornerRadius="5"
+                                         Color="{DynamicResource AccentColor}" />
+                                <Label x:Name="PaymentLeftLabel"
+                                       Text=""
+                                       FontSize="14"
+                                       TextColor="{DynamicResource AppSubtextColor}" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="8">
+                                <BoxView WidthRequest="10"
+                                         HeightRequest="10"
+                                         CornerRadius="5"
+                                         Color="#F59E0B" />
+                                <Label x:Name="PaymentRightLabel"
+                                       Text=""
+                                       FontSize="14"
+                                       TextColor="#F59E0B" />
+                            </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <Grid x:Name="SplitBarPaymentGrid"
+                              ColumnDefinitions="Auto,Auto"
+                              ColumnSpacing="2"
+                              HeightRequest="18"
+                              HorizontalOptions="FillAndExpand">
+                            <BoxView x:Name="SplitBarPaymentLeftFill"
+                                     Grid.Column="0"
+                                     BackgroundColor="{DynamicResource AccentColor}"
+                                     HeightRequest="18" />
+                            <BoxView x:Name="SplitBarPaymentRightFill"
+                                     Grid.Column="1"
+                                     BackgroundColor="#F59E0B"
+                                     HeightRequest="18" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
+

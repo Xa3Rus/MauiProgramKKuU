@@ -15,7 +15,9 @@
                 Margin="0,12,0,12" />
 
         <CollectionView Grid.Row="2"
-                        x:Name="HistoryCollectionView">
+                        x:Name="HistoryCollectionView"
+                        SelectionMode="Single"
+                        SelectionChanged="OnHistorySelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border StrokeThickness="1"

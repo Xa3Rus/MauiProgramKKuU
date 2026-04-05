@@ -27,53 +27,45 @@
                     </VerticalStackLayout>
                 </Border>
 
-                <Grid x:Name="CreditCard"
-                      ColumnDefinitions="Auto,*"
-                      ColumnSpacing="14"
-                      Padding="18"
-                      BackgroundColor="{DynamicResource CardBackgroundColor}"
-                      MinimumHeightRequest="98">
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnCreditTapped" />
-                    </Grid.GestureRecognizers>
+                <!-- Верхние кнопки (tabs) как на скрине -->
+                <Border BackgroundColor="{DynamicResource CardBackgroundColor}"
+                        Stroke="{DynamicResource AccentColor}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 22"
+                        Padding="8">
+                    <Grid x:Name="TopTabsGrid"
+                          RowDefinitions="Auto,4"
+                          ColumnDefinitions="*,*"
+                          ColumnSpacing="0">
+                        <Button x:Name="CreditTabButton"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="По сумме кредита"
+                                BackgroundColor="Transparent"
+                                TextColor="{DynamicResource AppTextColor}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Padding="0"
+                                Clicked="OnCreditTabClicked" />
 
-                    <Image Source="credit.png"
-                           WidthRequest="34"
-                           HeightRequest="34"
-                           VerticalOptions="Center" />
-                    <Label Grid.Column="1"
-                           x:Name="CreditCardTitle"
-                           Text="Кредиты"
-                           TextColor="{DynamicResource AppTextColor}"
-                           FontAttributes="Bold"
-                           FontSize="24"
-                           LineBreakMode="WordWrap"
-                           VerticalOptions="Center" />
-                </Grid>
+                        <Button x:Name="MortgageTabButton"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Text="На жилье"
+                                BackgroundColor="Transparent"
+                                TextColor="{DynamicResource AppSubtextColor}"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Padding="0"
+                                Clicked="OnMortgageTabClicked" />
 
-                <Grid x:Name="MortgageCard"
-                      ColumnDefinitions="Auto,*"
-                      ColumnSpacing="14"
-                      Padding="18"
-                      BackgroundColor="{DynamicResource AltCardBackgroundColor}"
-                      MinimumHeightRequest="98">
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnMortgageTapped" />
-                    </Grid.GestureRecognizers>
-
-                    <Image Source="mortgage.png"
-                           WidthRequest="34"
-                           HeightRequest="34"
-                           VerticalOptions="Center" />
-                    <Label Grid.Column="1"
-                           x:Name="MortgageCardTitle"
-                           Text="Ипотека"
-                           TextColor="{DynamicResource AppTextColor}"
-                           FontAttributes="Bold"
-                           FontSize="24"
-                           LineBreakMode="WordWrap"
-                           VerticalOptions="Center" />
-                </Grid>
+                        <BoxView x:Name="TopTabsIndicator"
+                                 Grid.Row="1"
+                                 Grid.Column="0"
+                                 BackgroundColor="{DynamicResource AccentColor}"
+                                 HeightRequest="4" />
+                    </Grid>
+                </Border>
 
                 <Border StrokeShape="RoundRectangle 22"
                         BackgroundColor="{DynamicResource CardBackgroundColor}"
